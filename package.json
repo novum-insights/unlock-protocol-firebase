@@ -1,6 +1,6 @@
 {
   "name": "@novuminsights/unlock-protocol-firebase",
-  "version": "0.0.15",
+  "version": "0.1.0",
   "description": "Simple integration of Firebase authentication and authorization with Unlock locks",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
