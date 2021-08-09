@@ -1,0 +1,13 @@
+{
+  "networks": {
+    "mainnet": {
+      "provider_url": "https://mainnet.infura.io/v3/56057fed855441b7b642730944ee2437",
+      "locks": {
+        "0x437Ddf640e37633D80dDE906EAa76AC42A0e27F5": ["basic_subscription"]
+      }
+    },
+    "rinkby": {}
+  },
+  "default_network": "mainnet",
+  "default_claims": ["wallet_owner"]
+}

@@ -1,0 +1,10 @@
+node_modules
+.idea/
+.git
+.npmrc
+*/log
+coverage/
+lib/
+firebase-debug.log
+.firebaserc
+firebase.json

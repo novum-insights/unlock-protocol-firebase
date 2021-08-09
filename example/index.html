@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script type="text/javascript"
+            src="https://unpkg.com/@novuminsights/unlock-protocol-firebase@0.0.14/lib/browser.js"></script>
+</head>
+<body>
+<button style="min-width: 10rem; min-height: 4rem; border-radius: 0.5rem;
+        font-size: 1.25rem;line-height: 1.75rem; padding: 0.75rem"
+        id="MyButton">Ξ Connect Your Wallet! 🔓</button>
+</body>
+<script>
+    const firebaseConfig = {
+        apiKey: "API_KEY",
+        authDomain: "PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://PROJECT_ID.firebaseio.com",
+        projectId: "PROJECT_ID",
+        storageBucket: "PROJECT_ID.appspot.com",
+        messagingSenderId: "SENDER_ID",
+        appId: "APP_ID",
+        measurementId: "G-MEASUREMENT_ID",
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const signInButton = document.querySelector('#MyButton')
+    app.functions().useEmulator("localhost", 5001)
+    signInButton.onclick = async () => {
+        await unlockProtocolFirebaseBrowser.signInWithWeb3(app)
+        const currentUser = app.auth().currentUser;
+        const authToken = await currentUser.getIdTokenResult()
+        window.alert(JSON.stringify({user: currentUser.uid, claims: authToken.claims}))
+    };
+</script>
+</html>

@@ -1,0 +1,12 @@
+.idea/
+.git
+.gitignore
+.npmrc
+*/log
+tests/
+example/
+coverage/
+lib/
+firebase-debug.log
+.firebaserc
+firebase.json
