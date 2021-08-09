@@ -27,7 +27,7 @@ $ npm i @novum/unlock-firebase-integration
 
 ## Authentication
 
-This package allows wallet holders to login to Firebase Authentication by verifying wallet ownership via signed message. No additional information is required. If you are using other authentication providers, I'd recommend merging user created in this way and using `AccountClaimReader` in `@novum/unlock-firebase-integration/server/helpers`  to maintain user claims in a customer manner. 
+This package allows wallet holders to log in to Firebase Authentication by verifying wallet ownership via signed message. No additional information is required. If you are using other authentication providers, I'd recommend merging user created in this way and using `AccountClaimReader` in `@novum/unlock-firebase-integration/server/helpers`  to maintain user claims in a custom manner. 
 
 ### Enabling Cloud Function authentication with for Wallet Users 
 
@@ -44,7 +44,13 @@ export {getLockFirebaseToken, createMessageToken} from "@novuminsights/unlock-pr
 ```
 {% endcode %}
 
-On the frond end, just call `signInWithWeb3`. For example using a button:
+Additionally, you need to set a secret:
+
+```bash
+$ firebase functions:config:set unlock.secret="Any String you can keep secret!"
+```
+
+On the front-end, just call `signInWithWeb3`. For example, using a button:
 
 {% tabs %}
 {% tab title="Bundler" %}
@@ -107,14 +113,14 @@ Custom claims are assigned to the user upon authentication based on the locks th
 You can define multiple networks, but currently only one network is used at a time. You can set which network will be used for a particular project via firebase functions config like so:
 
 ```javascript
-firebase functions:config:set unlock.network=rinkby
+$ firebase functions:config:set unlock.network=rinkby
 ```
 
-Otherwise, `default_network` as defined in `unlock-integration-config.json` is used. This is useful for testing with rinkby. Support for multiple active networks can be added in the future.
+Otherwise, `default_network` as defined in `unlock-integration-config.json` is used. This is useful for testing with Rinkby. Support for multiple active networks can be added in the future.
 
 ### Using claims for role-based access
 
-You can access these claims directly from the user's token --- for example, in your firestore rules:
+You can access these claims directly from the user's token --- for example, in your Firestore rules:
 
 {% code title="firestore.rules" %}
 ```javascript
