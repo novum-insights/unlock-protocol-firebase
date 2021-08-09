@@ -156,5 +156,5 @@ export async function canViewDashboard(user) {
 
 ## Example Project
 
-
+An example project can be found it `example/` . You will need to add your own project credentials as it uses Firebase Auth.
 
