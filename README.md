@@ -1,29 +1,19 @@
----
-description: >-
-  This package allows Web3 enabled browsers the authenticate with Firebase.
-  Access roles are assigned based on the wallet's locks.
----
-
 # README
 
 ## Installation
 
 Functions needed for cloud functions and in the browser are available via `npm` , browser capability can also be enabled via CDN for those not using a bundler.
 
-{% tabs %}
-{% tab title="Node.js" %}
+### Node.js
 ```
 $ npm i @novum/unlock-firebase-integration
 ```
-{% endtab %}
 
-{% tab title="CDN" %}
+### CDN
 ```markup
 <script type="text/javascript"
     src="https://unpkg.com/@novuminsights/unlock-protocol-firebase/lib/browser.js"></script>
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Authentication
 
@@ -33,8 +23,8 @@ This package allows wallet holders to log in to Firebase Authentication by verif
 
 That's all you need for the backend:
 
-{% code title="functions/src/index.js" %}
 ```javascript
+// functions/src/index.js
 //initialize you app as you normally would
 import * as admin from "firebase-admin";
 admin.initializeApp();
@@ -42,7 +32,6 @@ admin.initializeApp();
 //expose getLockFirebaseToken and createMessageToken as you would any other function
 export {getLockFirebaseToken, createMessageToken} from "@novuminsights/unlock-protocol-firebase/lib/server";
 ```
-{% endcode %}
 
 Additionally, you need to set a secret:
 
@@ -52,8 +41,7 @@ $ firebase functions:config:set unlock.secret="Any String you can keep secret!"
 
 On the front-end, just call `signInWithWeb3`. For example, using a button:
 
-{% tabs %}
-{% tab title="Bundler" %}
+#### Bundler
 ```javascript
 import "firebase/auth"
 import "firebase/functions"
@@ -63,9 +51,8 @@ const app = firebase.initializeApp(firebaseConfig);
 const signInButton = document.querySelector('#MyButton')
 signInButton.onclick = () => signInWithWeb3(app);
 ```
-{% endtab %}
 
-{% tab title="CDN" %}
+#### CDN
 ```markup
 <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-functions.js"></script>
@@ -81,8 +68,6 @@ signInButton.onclick = () => signInWithWeb3(app);
     };
 </script>
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Controlling Access Through Locks
 
@@ -92,8 +77,8 @@ This integration uses the Unlock Protocol locks held in a wallet to assign acces
 
 Custom claims are assigned to the user upon authentication based on the locks the wallet currently has. The mapping from lock addresses to claims is  defined in `unlock-integration-config.json`, like so:
 
-{% code title="functions/unlock-integration.config.json" %}
 ```javascript
+// functions/unlock-integration.config.json
 {
     "networks": {
         "mainnet": {
@@ -108,7 +93,6 @@ Custom claims are assigned to the user upon authentication based on the locks th
   "default_claims": ["wallet_owner"]
 }
 ```
-{% endcode %}
 
 You can define multiple networks, but currently only one network is used at a time. You can set which network will be used for a particular project via firebase functions config like so:
 
@@ -122,8 +106,8 @@ Otherwise, `default_network` as defined in `unlock-integration-config.json` is u
 
 You can access these claims directly from the user's token --- for example, in your Firestore rules:
 
-{% code title="firestore.rules" %}
 ```javascript
+// firestore.rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -139,7 +123,6 @@ service cloud.firestore {
 }
 
 ```
-{% endcode %}
 
  As well as, your Firebase functions:
 
