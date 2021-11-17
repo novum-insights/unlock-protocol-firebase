@@ -6,7 +6,7 @@ Functions needed for cloud functions and in the browser are available via `npm` 
 
 ### Node.js
 ```
-$ npm i @novum/unlock-firebase-integration
+$ npm install @novuminsights/unlock-protocol-firebase
 ```
 
 ### CDN
